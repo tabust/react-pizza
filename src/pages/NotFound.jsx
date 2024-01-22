@@ -1,7 +1,8 @@
 import React from 'react';
+import NotFoundBlock from '../components/NotFoundBlock';
 
 const NotFound = () => {
-  return <h1>Not found :(</h1>;
+  return <NotFoundBlock />;
 };
 
 export default NotFound;
