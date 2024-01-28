@@ -10,6 +10,7 @@ import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFilter, setCategoryId, setCurrentPage } from '../redux/Slices/filterSlice';
 import { setItems, fetchPizzas, selectPizzasData } from '../redux/Slices/pizzasSlices';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
@@ -45,9 +46,11 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = Array.isArray(items)
-    ? items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
-    : null;
+  const pizzas = items.map((obj) => (
+    <Link key={obj.id} to={`/pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link>
+  ));
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
