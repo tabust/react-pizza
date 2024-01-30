@@ -3,17 +3,17 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSort, setSort } from '../redux/Slices/filterSlice';
 
+type SortItem = {
+  name: string;
+  sort: string;
+};
+
 function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = React.useState(false);
-
-  type SortItem = {
-    name: string;
-    sort: string;
-  };
 
   const list: SortItem[] = [
     { name: 'popular DESC', sort: 'rating' },
@@ -30,8 +30,10 @@ function Sort() {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      const current = sortRef.current;
+      const path = e.composedPath();
+      if (current && !path.includes(current)) {
         setOpen(false);
       }
     };
