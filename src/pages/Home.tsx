@@ -11,19 +11,19 @@ import { selectFilter, setCategoryId, setCurrentPage } from '../redux/Slices/fil
 import { setItems, fetchPizzas, selectPizzasData } from '../redux/Slices/pizzasSlices';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const Home: React.FC = () => {
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzasData);
   const sortType = sort.sort;
 
   const dispatch = useDispatch();
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (num) => {
-    dispatch(setCurrentPage(num));
+  const onChangePage = (value: number) => {
+    dispatch(setCurrentPage(value));
   };
 
   React.useEffect(() => {
@@ -33,6 +33,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         order,
         sortBy,
@@ -45,7 +46,7 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = items.map((obj) => (
+  const pizzas = items.map((obj: any) => (
     <Link key={obj.id} to={`/pizza/${obj.id}`}>
       <PizzaBlock {...obj} />
     </Link>

@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import cartEmptyImg from '../assets/img/empty-cart.png';
 import '../scss/components/_emptyCart.scss';
 
-export const CartEmpty = () => {
+const CartEmpty: React.FC = () => {
   return (
     <div className="cart cart-empty">
       <h2>
-        Empty cart <icon>😕</icon>
+        Empty cart <span>😕</span>
       </h2>
       <p>
         You haven't ordered anything. <br />
