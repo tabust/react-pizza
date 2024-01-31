@@ -1,17 +1,23 @@
 import React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { selectSort, setSort } from '../redux/Slices/filterSlice';
+import { useDispatch } from 'react-redux';
+import { setSort } from '../redux/Slices/filterSlice';
+import { useWhyDidYouUpdate } from 'ahooks';
 
 type SortItem = {
   name: string;
   sort: string;
 };
 
-function Sort() {
+type SortProps = {
+  value: SortItem;
+};
+
+const Sort: React.FC<SortProps> = React.memo(({ value }) => {
   const dispatch = useDispatch();
-  const sort = useSelector(selectSort);
   const sortRef = React.useRef<HTMLDivElement>(null);
+
+  useWhyDidYouUpdate('Sort', { value });
 
   const [open, setOpen] = React.useState(false);
 
@@ -60,7 +66,7 @@ function Sort() {
           />
         </svg>
         <b>Sort by:</b>
-        <span onClick={() => setOpen(!open)}>{sort.name}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
@@ -69,7 +75,7 @@ function Sort() {
               <li
                 key={i}
                 onClick={() => onClickListItem(obj)}
-                className={sort.sort === obj.sort ? 'active' : ''}
+                className={value.sort === obj.sort ? 'active' : ''}
               >
                 {obj.name}
               </li>
@@ -79,6 +85,6 @@ function Sort() {
       )}
     </div>
   );
-}
+});
 
 export default Sort;
