@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setSort } from '../redux/Slices/filterSlice';
 import { useWhyDidYouUpdate } from 'ahooks';
+import { setSort } from '../redux/filter/slice';
 
 type SortItem = {
   name: string;
